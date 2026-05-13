@@ -6,24 +6,26 @@ import '../../../core/storage/token_storage.dart';
 class AuthService {
 
   // Register
-  Future<String> register(String name, String email, String password) async {
+  Future<String> register(String username, String email,
+      String password, String confirmPassword) async {
     final response = await http.post(
       Uri.parse(ApiConstants.register),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'name': name,
+        'username': username,
         'email': email,
         'password': password,
+        'confirmPassword': confirmPassword,
       }),
     );
 
     final data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      await TokenStorage.saveToken(data['token']);
+      await TokenStorage.saveUserInfo(data);
       return 'success';
     } else {
-      return data.toString();
+      return data['message'] ?? 'Something went wrong!';
     }
   }
 
@@ -41,10 +43,10 @@ class AuthService {
     final data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      await TokenStorage.saveToken(data['token']);
+      await TokenStorage.saveUserInfo(data);
       return 'success';
     } else {
-      return data.toString();
+      return data['message'] ?? 'Something went wrong!';
     }
   }
 }

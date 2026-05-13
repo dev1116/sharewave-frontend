@@ -159,9 +159,11 @@ Future<String> downloadFileWeb(String roomId, String fileName) async {
       // Browser mein automatic download
       final blob = html.Blob([response.bodyBytes]);
       final url = html.Url.createObjectUrlFromBlob(blob);
+      // anchor variable directly use karo
+
       final anchor = html.AnchorElement(href: url)
-        ..setAttribute('download', fileName)
-        ..click();
+  ..setAttribute('download', fileName)
+  ..click();
       html.Url.revokeObjectUrl(url);
       return 'Downloaded: $fileName ✅';
     }
