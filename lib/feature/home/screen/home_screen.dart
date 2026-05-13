@@ -3,6 +3,7 @@ import '../../auth/screen/login_screen.dart';
 import '../../../core/storage/token_storage.dart';
 import '../../transfer/screen/send_screen.dart';
 import '../../transfer/screen/receive_screen.dart';
+import '../../transfer/screen/sent_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -168,29 +169,31 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 16),
 
             // Send Button
-            SizedBox(
-              width: double.infinity,
-              height: 60,
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SendScreen()),
-                ),
-                icon: const Icon(Icons.upload, size: 24),
-                label: const Text(
-                  'Send File',
-                  style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
+            
+
+// Sent Files Button
+SizedBox(
+  width: double.infinity,
+  height: 60,
+  child: OutlinedButton.icon(
+    onPressed: () => Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const SentScreen()),
+    ),
+    icon: const Icon(Icons.history, size: 24),
+    label: const Text(
+      'Sent Files',
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    ),
+    style: OutlinedButton.styleFrom(
+      foregroundColor: Colors.green,
+      side: const BorderSide(color: Colors.green, width: 2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  ),
+),
             const SizedBox(height: 12),
 
             // Receive Button

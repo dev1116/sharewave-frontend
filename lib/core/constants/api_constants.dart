@@ -6,4 +6,5 @@ class ApiConstants {
   static const String upload = '$baseUrl/api/transfer/upload';
   static const String receivedFiles = '$baseUrl/api/transfer/received-files';
   static const String download = '$baseUrl/api/transfer/download';
+  static const String sentFiles = '$baseUrl/api/transfer/sent-files';
 }

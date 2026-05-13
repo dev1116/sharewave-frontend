@@ -16,7 +16,8 @@ class TransferService {
       String? token = await TokenStorage.getToken();
       File file = File(filePath);
       int fileSize = await file.length();
-      int chunkSize = 10 * 1024 * 1024; // 10MB
+      // int chunkSize = 10 * 1024 * 1024; // 10MB
+      int chunkSize = 5 * 1024 * 1024;
       int totalChunks = (fileSize / chunkSize).ceil();
       if (totalChunks == 0) totalChunks = 1;
 
@@ -170,6 +171,23 @@ Future<String> downloadFileWeb(String roomId, String fileName) async {
     return 'Error downloading!';
   } catch (e) {
     return 'Error: $e';
+  }
+}
+
+Future<List<dynamic>> getSentFiles() async {
+  try {
+    String? token = await TokenStorage.getToken();
+    final response = await http.get(
+      Uri.parse(ApiConstants.sentFiles),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+    return [];
+  } catch (e) {
+    return [];
   }
 }
 }
