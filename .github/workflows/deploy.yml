@@ -5,17 +5,17 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write  # ← Git permission fix
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # v3 se v4
+      - uses: actions/checkout@v4
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.29.3'  # ← Yeh version use karo
           channel: 'stable'
 
       - name: Install dependencies
@@ -25,7 +25,7 @@ jobs:
         run: flutter build web --release --base-href /sharewave-frontend/
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4  # v3 se v4
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
